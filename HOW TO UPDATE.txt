@@ -9,6 +9,10 @@ The file events.csv is the source of truth for it:
 
 EVENT ROW FORMAT
    Date        YYYY-MM-DD, e.g. 2026-12-05
+   Day         Day of the week, e.g. Thursday — for reference only;
+               the site calculates this itself from Date, so this
+               column doesn't have to be perfect, just keep it
+               accurate for anyone reading the spreadsheet directly
    Type        Breakfast or Lunch (spelled exactly like that)
    Start Time  e.g. 11:30 AM
    End Time    optional — leave blank for a single start time,
