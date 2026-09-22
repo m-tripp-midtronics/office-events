@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Office Eats</title>
+<style>
+  :root{
+    --bg:#F3F5F7;
+    --surface:#FFFFFF;
+    --surface-2:#EAF0F5;
+    --ink:#0B2540;
+    --muted:#5B7083;
+    --border:#DEE6EC;
+    --brand-blue:#0072BC;
+    --brand-navy:#002B5C;
+    --breakfast:#B5650A;
+    --breakfast-bg:#FBEEDD;
+    --lunch:#00897B;
+    --lunch-bg:#E1F4F1;
+    --shadow:0 1px 2px rgba(11,37,64,.06),0 6px 16px rgba(11,37,64,.05);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#0B1622;
+      --surface:#121F2E;
+      --surface-2:#17293C;
+      --ink:#EAF2F8;
+      --muted:#8FA6BA;
+      --border:#223245;
+      --brand-blue:#57ABE3;
+      --brand-navy:#BFD9EE;
+      --breakfast:#F2A649;
+      --breakfast-bg:#2C2213;
+      --lunch:#4CD9C6;
+      --lunch-bg:#0F2B28;
+      --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 16px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0B1622;
+    --surface:#121F2E;
+    --surface-2:#17293C;
+    --ink:#EAF2F8;
+    --muted:#8FA6BA;
+    --border:#223245;
+    --brand-blue:#57ABE3;
+    --brand-navy:#BFD9EE;
+    --breakfast:#F2A649;
+    --breakfast-bg:#2C2213;
+    --lunch:#4CD9C6;
+    --lunch-bg:#0F2B28;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 16px rgba(0,0,0,.35);
+  }
+
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"Source Sans 3",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    padding-inline:16px;
+    padding-top:env(safe-area-inset-top,0px);
+    padding-bottom:env(safe-area-inset-bottom,0px);
+  }
+  img{max-width:100%}
+  h1,h2,.display{
+    font-family:"Manrope",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    text-wrap:balance;
+  }
+
+  .wrap{max-width:560px;margin:0 auto}
+
+  .intro{
+    padding-block:28px 20px;
+    text-align:center;
+  }
+  .intro img{
+    width:180px;
+    max-width:60%;
+    height:auto;
+    display:block;
+    margin:0 auto 18px;
+  }
+  .intro h1{
+    margin:0 0 6px;
+    font-size:26px;
+    font-weight:800;
+    color:var(--brand-navy);
+    letter-spacing:-.01em;
+  }
+  .intro p{
+    margin:0;
+    color:var(--muted);
+    font-size:15px;
+  }
+
+  .month-header{
+    position:sticky;
+    top:env(safe-area-inset-top,0px);
+    z-index:2;
+    background:var(--surface-2);
+    color:var(--brand-navy);
+    font-family:"Manrope",sans-serif;
+    font-weight:800;
+    font-size:13px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    padding:10px 14px;
+    border-radius:10px;
+    margin-block:18px 10px;
+  }
+  .month-group:first-of-type .month-header{margin-top:0}
+
+  .event-list{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+  }
+
+  .event{
+    display:flex;
+    gap:14px;
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:14px;
+    box-shadow:var(--shadow);
+  }
+
+  .date-block{
+    flex:0 0 auto;
+    width:56px;
+    text-align:center;
+  }
+  .date-block .dow{
+    font-family:"Manrope",sans-serif;
+    font-weight:700;
+    font-size:11px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    color:var(--muted);
+  }
+  .date-block .num{
+    font-family:"Manrope",sans-serif;
+    font-weight:800;
+    font-size:26px;
+    line-height:1.1;
+    color:var(--ink);
+    font-variant-numeric:tabular-nums;
+  }
+
+  .event-body{flex:1 1 auto;min-width:0}
+
+  .event-top{
+    display:flex;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-bottom:6px;
+  }
+  .badge{
+    font-family:"Manrope",sans-serif;
+    font-weight:800;
+    font-size:11px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    padding:4px 9px;
+    border-radius:999px;
+  }
+  .badge.breakfast{background:var(--breakfast-bg);color:var(--breakfast)}
+  .badge.lunch{background:var(--lunch-bg);color:var(--lunch)}
+  .time{
+    font-size:13px;
+    color:var(--muted);
+    font-variant-numeric:tabular-nums;
+  }
+  .menu{
+    margin:0;
+    font-size:15px;
+    line-height:1.4;
+    color:var(--ink);
+  }
+
+  .empty{
+    text-align:center;
+    color:var(--muted);
+    padding:40px 16px;
+    font-size:15px;
+  }
+
+  footer{
+    text-align:center;
+    color:var(--muted);
+    font-size:12px;
+    padding-block:28px calc(24px + env(safe-area-inset-bottom,0px));
+  }
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@700;800&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="wrap">
+  <div class="intro">
+    <img src="assets/midtronics-logo-full.webp" alt="Midtronics" />
+    <h1>Office Eats</h1>
+    <p>Breakfast &amp; lunch events, all in one place</p>
+  </div>
+
+  <div id="list"></div>
+
+  <footer>Have an event to add? Just let the organizers know.</footer>
+</div>
+
+<script>
+  // Event data lives in events.csv (published alongside this page) so it
+  // can be updated by replacing that file — no edits to this page needed.
+  var DOW = ["SUN","MON","TUE","WED","THU","FRI","SAT"];
+  var MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+
+  function parseLocalDate(iso){
+    var parts = iso.split("-").map(Number);
+    return new Date(parts[0], parts[1]-1, parts[2]);
+  }
+
+  function escapeHtml(s){
+    return String(s == null ? "" : s).replace(/[&<>"']/g, function(c){
+      return { "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[c];
+    });
+  }
+
+  // Minimal RFC4180 CSV parser: handles quoted fields, embedded commas/quotes.
+  function parseCSV(text){
+    var rows = [];
+    var row = [];
+    var field = "";
+    var inQuotes = false;
+    text = text.replace(/\r\n/g, "\n").replace(/\r/g, "\n");
+    for(var i = 0; i < text.length; i++){
+      var c = text[i];
+      if(inQuotes){
+        if(c === '"'){
+          if(text[i+1] === '"'){ field += '"'; i++; }
+          else { inQuotes = false; }
+        } else {
+          field += c;
+        }
+      } else {
+        if(c === '"'){ inQuotes = true; }
+        else if(c === ','){ row.push(field); field = ""; }
+        else if(c === '\n'){ row.push(field); rows.push(row); row = []; field = ""; }
+        else { field += c; }
+      }
+    }
+    if(field.length || row.length){ row.push(field); rows.push(row); }
+
+    if(!rows.length) return [];
+    var headers = rows[0].map(function(h){ return h.trim().toLowerCase(); });
+    return rows.slice(1)
+      .filter(function(r){ return r.some(function(v){ return v.trim() !== ""; }); })
+      .map(function(r){
+        var obj = {};
+        headers.forEach(function(h, idx){ obj[h] = (r[idx] || "").trim(); });
+        return obj;
+      });
+  }
+
+  function toEvent(row){
+    var type = (row["type"] || "").toLowerCase() === "breakfast" ? "breakfast" : "lunch";
+    var time = row["start time"] || "";
+    if(row["end time"]) time += " – " + row["end time"];
+    return { date: row["date"], type: type, time: time, menu: row["menu"] || "" };
+  }
+
+  function render(events){
+    var list = document.getElementById("list");
+    var sorted = events.slice().sort(function(a,b){ return a.date.localeCompare(b.date); });
+
+    if(!sorted.length){
+      list.innerHTML = '<p class="empty">No events on the calendar yet — check back soon.</p>';
+      return;
+    }
+
+    var groups = [];
+    var currentKey = null, currentGroup = null;
+    sorted.forEach(function(ev){
+      var d = parseLocalDate(ev.date);
+      var key = d.getFullYear() + "-" + d.getMonth();
+      if(key !== currentKey){
+        currentKey = key;
+        currentGroup = { label: MONTHS[d.getMonth()] + " " + d.getFullYear(), items: [] };
+        groups.push(currentGroup);
+      }
+      currentGroup.items.push({ ev: ev, d: d });
+    });
+
+    list.innerHTML = groups.map(function(g){
+      var cards = g.items.map(function(item){
+        var d = item.d, ev = item.ev;
+        var typeLabel = ev.type === "breakfast" ? "Breakfast" : "Lunch";
+        return '' +
+          '<div class="event">' +
+            '<div class="date-block">' +
+              '<div class="dow">' + DOW[d.getDay()] + '</div>' +
+              '<div class="num">' + d.getDate() + '</div>' +
+            '</div>' +
+            '<div class="event-body">' +
+              '<div class="event-top">' +
+                '<span class="badge ' + ev.type + '">' + typeLabel + '</span>' +
+                '<span class="time">' + escapeHtml(ev.time) + '</span>' +
+              '</div>' +
+              '<p class="menu">' + escapeHtml(ev.menu) + '</p>' +
+            '</div>' +
+          '</div>';
+      }).join("");
+      return '' +
+        '<div class="month-group">' +
+          '<div class="month-header">' + g.label + '</div>' +
+          '<div class="event-list">' + cards + '</div>' +
+        '</div>';
+    }).join("");
+  }
+
+  fetch("events.csv")
+    .then(function(r){ if(!r.ok) throw new Error("fetch failed"); return r.text(); })
+    .then(function(text){ render(parseCSV(text).map(toEvent).filter(function(e){ return e.date; })); })
+    .catch(function(){
+      document.getElementById("list").innerHTML =
+        '<p class="empty">Couldn\'t load the event list right now — try refreshing.</p>';
+    });
+</script>
+</body>
+</html>

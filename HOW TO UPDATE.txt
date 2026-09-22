@@ -1,0 +1,27 @@
+OFFICE EATS — HOW TO UPDATE THE EVENT LIST
+============================================
+
+The file events.csv in this folder is the source of truth for the
+"Office Eats" site (https://claude.ai/artifact/B6XUuqCEY4GZ8y9BsrjnaX).
+
+TO ADD, CHANGE, OR REMOVE AN EVENT
+1. Open events.csv (double-click opens it in Excel).
+2. Add a new row, edit a row, or delete a row. Columns:
+     Date        YYYY-MM-DD, e.g. 2026-12-05
+     Type        Breakfast or Lunch (spelled exactly like that)
+     Start Time  e.g. 11:30 AM
+     End Time    optional — leave blank for a single start time,
+                 fill in for a range like a breakfast window
+     Menu        whatever's being served
+3. Save the file (keep it as .csv — if Excel asks, choose
+   "Keep Current Format").
+
+TO PUSH THE UPDATE LIVE
+Message Claude (in a session that has access to this "Office Events"
+folder) and say something like:
+   "Sync the Office Eats site from the spreadsheet."
+Claude will read events.csv and republish the site with the changes.
+
+Both you and your co-editor can do this — anyone with edit access to
+this folder can update the spreadsheet, and anyone with a Claude
+session pointed at this folder can ask for the sync.
